@@ -1,0 +1,162 @@
+export const cars = [
+  {
+    id: 1,
+    name: 'Toyota Fortuner',
+    category: 'suv',
+    subtitle: '4WD • 2024 Model',
+    image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 750K',
+    seats: 7,
+    transmission: 'Auto',
+    bags: 3,
+    rating: 5,
+    reviews: 128,
+    badges: [
+      { label: 'SUV', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+      { label: 'Popular', style: { background: 'rgba(249,115,22,.9)', color: '#fff' } },
+    ],
+  },
+  {
+    id: 2,
+    name: 'BMW 5 Series',
+    category: 'sedan',
+    subtitle: 'Executive Sedan • 2023',
+    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 1.2M',
+    seats: 5,
+    transmission: 'Auto',
+    bags: 2,
+    rating: 5,
+    reviews: 95,
+    badges: [
+      { label: 'Sedan', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Toyota Alphard',
+    category: 'mpv',
+    subtitle: 'Luxury Minivan • 2024',
+    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 1.5M',
+    seats: 7,
+    transmission: 'Auto',
+    bags: 4,
+    rating: 4,
+    reviews: 73,
+    badges: [
+      { label: 'MPV', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+      { label: 'Best Value', style: { background: 'rgba(30,45,107,.9)', color: '#fff' } },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Mercedes S-Class',
+    category: 'luxury',
+    subtitle: 'Flagship Luxury • 2024',
+    image: 'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 2.8M',
+    seats: 4,
+    transmission: 'Auto',
+    bags: 2,
+    rating: 5,
+    reviews: 47,
+    badges: [
+      { label: 'Luxury', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+      { label: 'Exclusive', style: { background: 'linear-gradient(135deg,#F97316,#ea580c)', color: '#fff' } },
+    ],
+  },
+]
+
+export const categories = [
+  { value: 'all', label: 'All Cars' },
+  { value: 'suv', label: 'SUV' },
+  { value: 'sedan', label: 'Sedan' },
+  { value: 'mpv', label: 'MPV' },
+  { value: 'luxury', label: 'Luxury' },
+]
+
+export const stats = [
+  { value: '150+', label: 'Premium Cars' },
+  { value: '18k+', label: 'Happy Customers' },
+  { value: '25+', label: 'City Coverage' },
+  { value: '4.9★', label: 'Average Rating' },
+]
+
+export const services = [
+  {
+    id: 1,
+    title: 'Comprehensive Insurance',
+    desc: 'Every rental includes full collision and theft protection. Drive with total peace of mind.',
+    iconBg: '#FEF3E2',
+    iconColor: '#F97316',
+    icon: 'shield',
+  },
+  {
+    id: 2,
+    title: 'Door-to-Door Delivery',
+    desc: 'We bring the car to your home, hotel, or office. Return it the same way — zero hassle.',
+    iconBg: '#EEF0F8',
+    iconColor: '#4A5AA8',
+    icon: 'home',
+  },
+  {
+    id: 3,
+    title: '24 / 7 Emergency Support',
+    desc: 'Got a flat tyre at midnight? Our support team is always one call away, anywhere in Indonesia.',
+    iconBg: '#FEF3E2',
+    iconColor: '#F97316',
+    icon: 'clock',
+  },
+  {
+    id: 4,
+    title: 'Transparent Pricing',
+    desc: 'What you see is what you pay. No surprise fees at checkout — our pricing is fully itemised upfront.',
+    iconBg: '#EEF0F8',
+    iconColor: '#4A5AA8',
+    icon: 'dollar',
+  },
+  {
+    id: 5,
+    title: '25+ City Coverage',
+    desc: 'From Sabang to Merauke — our network spans major Indonesian cities and tourist destinations.',
+    iconBg: '#FEF3E2',
+    iconColor: '#F97316',
+    icon: 'map',
+  },
+  {
+    id: 6,
+    title: 'Professional Drivers',
+    desc: 'All our drivers are licensed, background-checked, and trained in hospitality standards.',
+    iconBg: '#EEF0F8',
+    iconColor: '#4A5AA8',
+    icon: 'users',
+  },
+]
+
+export const steps = [
+  {
+    step: '01',
+    title: 'Choose Your Vehicle',
+    desc: 'Browse our fleet, filter by category, dates, and preferences. Compare prices and features at a glance.',
+    iconBg: '#FEF3E2',
+    iconColor: '#F97316',
+    icon: 'grid',
+  },
+  {
+    step: '02',
+    title: 'Upload Documents',
+    desc: 'Submit your SIM / KTP securely via our encrypted portal. Verified in minutes — no branch visit needed.',
+    iconBg: '#EEF0F8',
+    iconColor: '#4A5AA8',
+    icon: 'file',
+  },
+  {
+    step: '03',
+    title: 'Hit the Road',
+    desc: 'Vehicle delivered to your door or pick up at our hub. Get the keys and start your adventure — 24/7 support included.',
+    iconBg: '#FFF7ED',
+    iconColor: '#F97316',
+    icon: 'pin',
+  },
+]
