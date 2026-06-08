@@ -1,3 +1,4 @@
+// src/data/fleet.js
 export const cars = [
   {
     id: 1,
@@ -5,7 +6,7 @@ export const cars = [
     category: 'suv',
     subtitle: '4WD • 2024 Model',
     image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80&auto=format&fit=crop',
-    price: 'Rp 750K',
+    price: 'Rp 1.200K',
     seats: 7,
     transmission: 'Auto',
     bags: 3,
@@ -18,6 +19,71 @@ export const cars = [
   },
   {
     id: 2,
+    name: 'Toyota Avanza MT',
+    category: 'mpv',
+    subtitle: '7 Seater • 2024',
+    image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 350K',
+    seats: 7,
+    transmission: 'Manual',
+    bags: 2,
+    rating: 4,
+    reviews: 256,
+    badges: [
+      { label: 'MPV', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+    ],
+  },
+  {
+    id: 3,
+    name: 'Daihatsu Ayla',
+    category: 'hatchback',
+    subtitle: 'City Car • 2024',
+    image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 350K',
+    seats: 5,
+    transmission: 'Manual',
+    bags: 1,
+    rating: 4,
+    reviews: 189,
+    badges: [
+      { label: 'Hatchback', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+      { label: 'Ekonomis', style: { background: 'rgba(30,45,107,.9)', color: '#fff' } },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Toyota Agya',
+    category: 'hatchback',
+    subtitle: 'City Car • 2024',
+    image: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 350K',
+    seats: 5,
+    transmission: 'Manual',
+    bags: 1,
+    rating: 4,
+    reviews: 156,
+    badges: [
+      { label: 'Hatchback', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Toyota Calya',
+    category: 'mpv',
+    subtitle: '7 Seater • 2024',
+    image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80&auto=format&fit=crop',
+    price: 'Rp 400K',
+    seats: 7,
+    transmission: 'Manual',
+    bags: 2,
+    rating: 4,
+    reviews: 142,
+    badges: [
+      { label: 'MPV', style: { background: 'rgba(11,20,55,.72)', color: '#fff', backdropFilter: 'blur(8px)' } },
+    ],
+  },
+  {
+    id: 6,
     name: 'BMW 5 Series',
     category: 'sedan',
     subtitle: 'Executive Sedan • 2023',
@@ -33,7 +99,7 @@ export const cars = [
     ],
   },
   {
-    id: 3,
+    id: 7,
     name: 'Toyota Alphard',
     category: 'mpv',
     subtitle: 'Luxury Minivan • 2024',
@@ -50,7 +116,7 @@ export const cars = [
     ],
   },
   {
-    id: 4,
+    id: 8,
     name: 'Mercedes S-Class',
     category: 'luxury',
     subtitle: 'Flagship Luxury • 2024',
@@ -73,12 +139,14 @@ export const categories = [
   { value: 'suv', label: 'SUV' },
   { value: 'sedan', label: 'Sedan' },
   { value: 'mpv', label: 'MPV' },
+  { value: 'hatchback', label: 'Hatchback' },
   { value: 'luxury', label: 'Luxury' },
 ]
 
+// TAMBAHKAN EKSPORT INI ↓↓↓
 export const stats = [
-  { value: '150+', label: 'Premium Cars' },
-  { value: '18k+', label: 'Happy Customers' },
+  { value: '20+', label: 'Premium Cars' },
+  { value: '1k+', label: 'Happy Customers' },
   { value: '25+', label: 'City Coverage' },
   { value: '4.9★', label: 'Average Rating' },
 ]

@@ -1,62 +1,126 @@
 import { useState } from 'react'
-import BookingWidget from '../ui/BookingWidget'
+import './HeroSection.css'
 
 export default function HeroSection() {
+  const featuredCars = [
+    { 
+      brand: 'Toyota', 
+      image: 'https://i.pinimg.com/736x/33/ed/f5/33edf50419b40c0d3716f55954afcae9.jpg',
+      logo: 'https://img.favpng.com/14/22/2/toyota-corolla-car-toyota-rav4-honda-logo-png-favpng-sUVgZNgBdtF3kDk3RyFeFyqZt.jpg'
+    },
+    { 
+      brand: 'Honda', 
+      image: 'https://i.pinimg.com/1200x/ba/44/09/ba4409fd522e221a1e0b51e33238a459.jpg',
+      logo: 'https://img.cintamobil.com/2020/10/07/ZXn5Pos1/logo-honda-mobil-1-c22e.jpg'
+    },
+    { 
+      brand: 'Mitsubishi',  
+      image: 'https://i.pinimg.com/736x/0d/16/f2/0d16f2a497de0f5ccf682b2d1ae46af5.jpg',
+      logo: 'https://thumbs.dreamstime.com/b/web-141701114.jpg'
+    },
+    { 
+      brand: 'Daihatsu',  
+      image: 'https://i.pinimg.com/1200x/b3/17/ab/b317ab8121047731fefd71f1d1343277.jpg',
+      logo: 'https://download.logo.wine/logo/Daihatsu/Daihatsu-Logo.wine.png'
+    },
+  ]
+
+  const [selectedCarIndex, setSelectedCarIndex] = useState(0)
+
+  const handleBrandClick = (index) => {
+    setSelectedCarIndex(index)
+  }
+
   return (
-    <section className="hero-section flex items-center pt-20" id="home">
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-16 md:py-20">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-
-          {/* Hero Copy */}
-          <div>
-            <div className="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-semibold uppercase tracking-widest" style={{ background: 'rgba(249,115,22,.18)', color: '#FDA56D', border: '1px solid rgba(249,115,22,.35)' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse inline-block" />
-              Premium Car Rental — Bandung & Beyond
-            </div>
-
-            <h1 className="animate-fade-up-2" style={{ fontFamily: "'Syne',sans-serif", fontSize: 'clamp(2.4rem,5.5vw,3.8rem)', fontWeight: 800, lineHeight: 1.08, color: '#fff', letterSpacing: '-.02em' }}>
-              Drive Your<br />
-              <span style={{ background: 'linear-gradient(90deg,#F97316,#fbbf24)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                Perfect
-              </span>
-              &nbsp;Journey
+    <section id="home" className="bg-white pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Left: Text */}
+          <div className="space-y-6">
+            <h1 className="hero-title text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]" style={{ fontFamily: "'Syne', sans-serif" }}>
+              Premium Car Rental <br /> in Bandung
             </h1>
-
-            <p className="animate-fade-up-3 mt-5 text-base md:text-lg leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,.68)', fontWeight: 300 }}>
-              Explore Indonesia in style — from mountain roads to coastal drives. Book in minutes, drive with confidence.
+            <p className="hero-description text-lg text-slate-600 max-w-md leading-relaxed">
+              Don't deny yourself the pleasure of driving the best cars from Toyota, Honda, Mitsubishi, and Daihatsu. Click the brand logo to see our fleet.
             </p>
+            <button className="hero-button book-now-btn px-8 py-4 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition-colors">
+              Book Now
+            </button>
+          </div>
 
-            {/* Trust Badges */}
-            <div className="animate-fade-in mt-8 flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(255,255,255,.65)' }}>
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#F97316" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span>Fully Insured</span>
-              </div>
-              <div className="w-px h-4" style={{ background: 'rgba(255,255,255,.2)' }} />
-              <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(255,255,255,.65)' }}>
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#F97316" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                <span>24 / 7 Support</span>
-              </div>
-              <div className="w-px h-4" style={{ background: 'rgba(255,255,255,.2)' }} />
-              <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(255,255,255,.65)' }}>
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#F97316" strokeWidth="2"><path d="M5 12l5 5L20 7"/></svg>
-                <span>No Hidden Fees</span>
-              </div>
+          {/* Right: Car Image with Transition */}
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-lg" style={{ minHeight: '320px' }}>
+              {featuredCars.map((car, idx) => (
+                <img 
+                  key={idx}
+                  src={car.image} 
+                  alt={`${car.brand} ${car.model}`}
+                  className={`hero-car-image w-full object-contain drop-shadow-xl absolute top-0 left-0 ${
+                    idx === selectedCarIndex ? 'active' : 'inactive'
+                  }`}
+                  style={{ 
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: 'auto'
+                  }}
+                />
+              ))}
+              {/* Spacer to maintain height */}
+              <div style={{ paddingBottom: '66%' }} />
             </div>
           </div>
-
-          {/* Booking Widget */}
-          <div className="booking-widget p-6 md:p-8 animate-fade-up-2">
-            <BookingWidget />
-          </div>
-
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <div className="w-6 h-10 border-2 rounded-full flex items-start justify-center pt-1.5" style={{ borderColor: 'rgba(255,255,255,.35)' }}>
-          <div className="w-1 h-2.5 rounded-full" style={{ background: 'rgba(255,255,255,.55)' }} />
+        {/* Brand Logos Strip - Interactive */}
+        <div className="brand-strip mt-16">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-slate-400 mb-8">
+            Choose Your Brand
+          </p>
+          <div className="flex flex-wrap justify-center lg:justify-start gap-6 md:gap-10">
+            {featuredCars.map((car, idx) => {
+              const isSelected = idx === selectedCarIndex
+              
+              return (
+                <button
+                  key={`${car.brand}-${car.model}-${idx}`}
+                  onClick={() => handleBrandClick(idx)}
+                  className={`brand-logo-btn group flex flex-col items-center gap-3 transition-all duration-300 ${
+                    isSelected ? 'active opacity-100' : 'opacity-60 hover:opacity-80'
+                  }`}
+                  aria-label={`View ${car.brand} ${car.model}`}
+                  title={`View ${car.brand} ${car.model}`}
+                >
+                  <div className={`logo-wrapper p-2 rounded-xl transition-all duration-300 ${
+                    isSelected ? 'bg-slate-100 shadow-lg scale-110' : 'hover:bg-slate-50'
+                  }`}>
+                    <img 
+                      src={car.logo} 
+                      alt={`${car.brand} logo`}
+                      className={`brand-logo-img w-12 h-12 md:w-14 md:h-14 object-contain transition-all duration-300 ${
+                        !isSelected ? 'grayscale' : ''
+                      }`}
+                      onError={(e) => {
+                        // Fallback jika logo tidak bisa di-load
+                        e.target.src = 'https://via.placeholder.com/56?text=' + car.brand.charAt(0)
+                      }}
+                    />
+                  </div>
+                  <div className="text-center">
+                    <p className={`text-xs font-bold transition-colors duration-300 ${
+                      isSelected ? 'text-slate-900' : 'text-slate-500'
+                    }`}>
+                      {car.brand}
+                    </p>
+                    <p className="text-[10px] text-slate-400">{car.model}</p>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>

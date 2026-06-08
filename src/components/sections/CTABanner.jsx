@@ -1,41 +1,40 @@
-export default function CTABanner() {
-  const scrollToTop = () => {
-    document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })
-  }
+import { Link } from 'react-router-dom';
 
+export default function StatsStrip() {
   return (
-    <section className="py-16 px-5 md:px-8" style={{ background: 'linear-gradient(120deg,#0B1437 0%,#1E2D6B 100%)' }}>
-      <div className="max-w-3xl mx-auto text-center">
-        <h2
-          className="text-3xl md:text-4xl font-bold text-white mb-4"
-          style={{ fontFamily: "'Syne',sans-serif", letterSpacing: '-.02em' }}
-        >
-          Ready to Hit the Open Road?
-        </h2>
-        <p className="text-base mb-8" style={{ color: 'rgba(255,255,255,.65)', fontWeight: 300 }}>
-          Join 18,000+ satisfied customers. Book your car today and get{' '}
-          <span style={{ color: '#F97316', fontWeight: 600 }}>10% off your first rental</span>{' '}
-          with code{' '}
-          <span style={{ color: '#F97316', fontWeight: 700 }}>VELOCE10</span>.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            className="search-btn w-auto px-10 py-4 text-base"
-            style={{ maxWidth: 260, margin: '0 auto' }}
-            onClick={scrollToTop}
-          >
-            Book Now — Get 10% Off
-          </button>
-          <button
-            className="px-8 py-4 rounded-xl text-sm font-semibold border transition-all"
-            style={{ borderColor: 'rgba(255,255,255,.25)', color: 'rgba(255,255,255,.8)' }}
-            onMouseOver={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,.6)'}
-            onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,.25)'}
-          >
-            View All Offers →
-          </button>
+    <section className="py-20 md:py-28 bg-white px-5 md:px-8 lg:px-10">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Banner dengan Gambar + Overlay Teks */}
+        <div className="relative rounded-3xl overflow-hidden shadow-xl">
+          {/* Gambar Background */}
+          <img 
+            src="/image/cd8261e888599f32a3d18b8f9ed4354b.jpg" 
+            alt="Luxury Car"
+            className="w-full h-[500px] md:h-[600px] object-cover"
+          />
+          
+          {/* Overlay Gelap agar teks lebih jelas */}
+          <div className="absolute inset-0 bg-black/40"></div>
+          
+          {/* Konten Teks di atas gambar */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5">
+            <h2 
+              className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight"
+              style={{ fontFamily: "'Syne', sans-serif" }}
+            >
+              Luxury Wheels for <br />
+              Your Next Journey!
+            </h2>
+            <Link to="/fleet-price">
+              <button className="px-8 py-4 bg-white text-slate-900 rounded-xl font-semibold hover:bg-slate-100 transition-all hover:scale-105 transform duration-300 shadow-lg">
+                Book Now
+              </button>
+            </Link>
+          </div>
         </div>
+
       </div>
     </section>
-  )
+  );
 }

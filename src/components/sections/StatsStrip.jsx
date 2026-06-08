@@ -2,20 +2,39 @@ import { stats } from '../../data/fleet'
 
 export default function StatsStrip() {
   return (
-    <div className="stat-strip py-5 px-5">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        {stats.map((stat) => (
-          <div key={stat.label}>
-            <p className="text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: "'Syne',sans-serif" }}>
-              {stat.value.replace('+', '')}{stat.value.includes('+') && <span style={{ color: '#F97316' }}>+</span>}
-              {stat.value.includes('★') && <span style={{ color: '#F97316' }}>★</span>}
-            </p>
-            <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,.5)', letterSpacing: '.06em', textTransform: 'uppercase' }}>
-              {stat.label}
-            </p>
-          </div>
-        ))}
+    <section className="py-16 md:py-20 bg-white px-5 md:px-8 lg:px-10">
+      <div className="max-w-7xl mx-auto">
+        {/* Optional: Top border to separate from previous section */}
+        <div className="w-full h-px bg-slate-100 mb-16" />
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+          {stats.map((stat) => {
+            // Logic to separate the number from symbols (+, ★) for better styling
+            const valueStr = stat.value.toString()
+            const number = valueStr.replace(/[^0-9.]/g, '')
+            const suffix = valueStr.replace(/[0-9.]/g, '')
+
+            return (
+              <div key={stat.label} className="group">
+                <p className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2 transition-colors" style={{ fontFamily: "'Syne', sans-serif" }}>
+                  <span>{number}</span>
+                  {suffix && (
+                    <span className="ml-1 text-orange-500 group-hover:text-orange-600 transition-colors">
+                      {suffix}
+                    </span>
+                  )}
+                </p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 group-hover:text-slate-600 transition-colors">
+                  {stat.label}
+                </p>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Optional: Bottom border to separate from next section */}
+        <div className="w-full h-px bg-slate-100 mt-16" />
       </div>
-    </div>
+    </section>
   )
 }

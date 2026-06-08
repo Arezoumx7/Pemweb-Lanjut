@@ -9,7 +9,9 @@ import HowItWorksSection from './components/sections/HowItWorksSection'
 import ServicesSection from './components/sections/ServicesSection'
 import CTABanner from './components/sections/CTABanner'
 import FleetPricePage from './pages/FleetPricePage'
-import ProfilePage from './pages/ProfilePage'  // ← TAMBAHKAN IMPORT
+import ProfilePage from './pages/ProfilePage'
+import CarDetailPage from './pages/CarDetailPage'
+import ContactPage from './pages/ContactPage'  // ← IMPORT HALAMAN CONTACT
 
 function HomePage() {
   return (
@@ -31,7 +33,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/fleet-price" element={<FleetPricePage />} />
-        <Route path="/profile" element={<ProfilePage />} />  {/* ← TAMBAHKAN RUTE INI */}
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/car/:id" element={<CarDetailPage />} />
+        <Route path="/contact" element={<ContactPage />} />  {/* ← TAMBAHKAN RUTE CONTACT */}
       </Routes>
       <Footer />
     </Router>

@@ -1,172 +1,191 @@
-import { useState } from 'react'
-import { cars, categories } from '../../data/fleet'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { carAPI } from '../../services/api';
 
-export default function FleetPricePage() {
-  const [activeCategory, setActiveCategory] = useState('all')
-  const [searchTerm, setSearchTerm] = useState('')
+export default function FleetSection() {
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filteredCars = cars.filter(car => {
-    const matchCategory = activeCategory === 'all' || car.category === activeCategory
-    const matchSearch = car.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        car.type.toLowerCase().includes(searchTerm.toLowerCase())
-    return matchCategory && matchSearch
-  })
+  // Daftar mobil yang ingin ditampilkan (urutan sesuai permintaan)
+  const targetCars = [
+    'Mitsubishi Pajero Sport',
+    'Mitsubishi Xpander',
+    'Toyota Fortuner',
+    'Daihatsu Terios',
+    'Toyota Rush',
+    'Toyota Innova Reborn MT'
+  ];
 
-  // Format currency
+  // Fetch data dari backend
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      
+      // Ambil semua mobil dari database
+      const carsData = await carAPI.getAll();
+      const allCars = carsData.data;
+      
+      // Filter hanya 6 mobil yang diinginkan
+      const filteredCars = allCars.filter(car => 
+        targetCars.some(target => car.name.toLowerCase().includes(target.toLowerCase()))
+      );
+      
+      // Urutkan sesuai targetCars
+      const sortedCars = targetCars.map(target => 
+        filteredCars.find(car => car.name.toLowerCase().includes(target.toLowerCase()))
+      ).filter(car => car); // Hapus yang undefined
+      
+      setCars(sortedCars);
+      
+    } catch (err) {
+      console.error('Failed to fetch cars:', err);
+      setError('Gagal memuat data mobil');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price)
+    }).format(price);
+  };
+
+  if (loading) {
+    return (
+      <section className="py-20 md:py-28 bg-white px-5 md:px-8 lg:px-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">OUR FLEET</span>
+            <h2 className="mt-2 text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900" style={{ fontFamily: "'Syne', sans-serif" }}>
+              Popular Car Models
+            </h2>
+            <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+              Choose your favorite car from our best collection
+            </p>
+          </div>
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-20 md:py-28 bg-white px-5 md:px-8 lg:px-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">OUR FLEET</span>
+            <h2 className="mt-2 text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900" style={{ fontFamily: "'Syne', sans-serif" }}>
+              Popular Car Models
+            </h2>
+          </div>
+          <div className="text-center py-12 text-red-500">
+            <p>{error}</p>
+            <button 
+              onClick={fetchData}
+              className="mt-4 px-4 py-2 bg-orange-500 text-white rounded-lg"
+            >
+              Coba Lagi
+            </button>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#F8FAFC' }}>
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-slate-900 to-slate-800 text-white py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ fontFamily: "'Syne',sans-serif" }}>
-            Daftar Harga Sewa Mobil
-          </h1>
-          <p className="text-lg md:text-xl text-slate-300 max-w-2xl">
-            Pilih mobil favorit Anda dengan harga terbaik. Semua mobil dalam kondisi prima dan siap menemani perjalanan Anda.
+    <section className="py-20 md:py-28 bg-white px-5 md:px-8 lg:px-10">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">OUR FLEET</span>
+          <h2 className="mt-2 text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900" style={{ fontFamily: "'Syne', sans-serif" }}>
+            Popular Car Models
+          </h2>
+          <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+            Choose your favorite car from our best collection
           </p>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-12">
-        
-        {/* Search Bar */}
-        <div className="mb-8">
-          <div className="relative max-w-md">
-            <input
-              type="text"
-              placeholder="Cari mobil berdasarkan nama atau tipe..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-5 py-3 pl-12 rounded-xl border border-slate-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
-              style={{ background: '#fff' }}
-            />
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-        </div>
-
-        {/* Category Pills */}
-        <div className="flex flex-wrap gap-2.5 mb-10">
-          {categories.map(cat => (
-            <button
-              key={cat.value}
-              onClick={() => setActiveCategory(cat.value)}
-              className={`px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 ${
-                activeCategory === cat.value
-                  ? 'text-white shadow-lg'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-              }`}
-              style={activeCategory === cat.value ? { background: '#F97316' } : {}}
+        {/* Car Cards Grid - 2 kolom di tablet, 3 kolom di desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cars.map((car) => (
+            <div 
+              key={car.id} 
+              className="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100 hover:shadow-lg transition group"
             >
-              {cat.label}
-            </button>
+              {/* Gambar Mobil */}
+              <Link to={`/car/${car.id}`} className="block overflow-hidden bg-slate-100">
+                <img 
+                  src={car.image} 
+                  alt={car.name} 
+                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105 cursor-pointer"
+                />
+              </Link>
+              
+              {/* Informasi Mobil */}
+              <div className="p-5">
+                <Link to={`/car/${car.id}`}>
+                  <h3 className="text-xl font-bold mb-3 hover:text-orange-500 transition">{car.name}</h3>
+                </Link>
+                
+                <div className="space-y-2 mb-4">
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                    <span className="text-slate-600 font-medium text-sm">TEMPAT DUDUK</span>
+                    <span className="font-semibold text-slate-800">{car.seats} Kursi</span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                    <span className="text-slate-600 font-medium text-sm">TRANSMISI</span>
+                    <span className="font-semibold text-slate-800">
+                      {car.transmission === 'Auto' ? 'Automatic' : car.transmission === 'Manual' ? 'Manual' : car.transmission}
+                    </span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center py-1.5 border-b border-slate-100">
+                    <span className="text-slate-600 font-medium text-sm">BAGASI</span>
+                    <span className="font-semibold text-slate-800">{car.bags} Koper</span>
+                  </div>
+                </div>
+                
+                {/* Harga */}
+                <div className="border-t pt-4 mb-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500 text-sm">Harga/Hari</span>
+                    <span className="text-xl font-bold text-orange-600">{formatPrice(car.price_per_day)}</span>
+                  </div>
+                </div>
+                
+                {/* Tombol Sewa */}
+                <Link to={`/car/${car.id}`}>
+                  <button className="w-full py-3 rounded-xl font-semibold text-white transition-all hover:opacity-90" style={{ background: '#0B1437' }}>
+                    Sewa Sekarang
+                  </button>
+                </Link>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Price List Table */}
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr style={{ background: '#F1F5F9' }}>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Mobil</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Tipe</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Tahun</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Transmisi</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Kapasitas</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Harga 12 Jam</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Harga 24 Jam</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold" style={{ color: '#0B1437' }}>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredCars.map((car, index) => (
-                  <tr 
-                    key={car.id} 
-                    className="border-t border-slate-100 hover:bg-slate-50 transition-colors"
-                  >
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
-                          <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M5 10v10h14V10" />
-                          </svg>
-                        </div>
-                        <div>
-                          <p className="font-semibold" style={{ color: '#0B1437' }}>{car.name}</p>
-                          <p className="text-xs text-slate-500">{car.type}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-slate-600">{car.category || 'SUV'}</td>
-                    <td className="px-6 py-4 text-sm text-slate-600">{car.year}</td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                        car.transmission === 'Automatic' 
-                          ? 'bg-green-100 text-green-700' 
-                          : 'bg-blue-100 text-blue-700'
-                      }`}>
-                        {car.transmission === 'Automatic' ? (
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                          </svg>
-                        ) : (
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                          </svg>
-                        )}
-                        {car.transmission}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-slate-600">{car.seats} Kursi</td>
-                    <td className="px-6 py-4">
-                      <span className="font-bold text-orange-600">{formatPrice(car.price12h || 1500000)}</span>
-                      <p className="text-xs text-slate-400">/12 jam</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="font-bold text-orange-600">{formatPrice(car.price24h || 2000000)}</span>
-                      <p className="text-xs text-slate-400">/24 jam</p>
-                    </td>
-                    <td className="px-6 py-4">
-                      <button className="px-4 py-2 rounded-lg text-sm font-semibold transition-all hover:scale-105" style={{ background: '#0B1437', color: '#fff' }}>
-                        Sewa Sekarang
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          
-          {/* Empty State */}
-          {filteredCars.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-slate-500">Tidak ada mobil yang ditemukan</p>
-            </div>
-          )}
-        </div>
-
-        {/* Price Notes */}
-        <div className="mt-8 p-5 bg-amber-50 rounded-xl border border-amber-200">
-          <h4 className="font-semibold text-amber-800 mb-2">Informasi Harga:</h4>
-          <ul className="text-sm text-amber-700 space-y-1">
-            <li>✓ Harga sudah termasuk driver dan bahan bakar (untuk dalam kota)</li>
-            <li>✓ Harga belum termasuk tol, parkir, dan retribusi</li>
-            <li>✓ Tersedia juga paket mingguan dan bulanan dengan harga khusus</li>
-            <li>✓ Free antar-jemput di area Jabodetabek</li>
-          </ul>
+        {/* Tombol Lihat Semua */}
+        <div className="text-center mt-12">
+          <Link 
+            to="/fleet-price"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-200 text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:border-orange-200 transition-colors"
+          >
+            Lihat Semua Mobil ({cars.length}+ models) →
+          </Link>
         </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }
